@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Messenger</string>
+    <string name="validate">Validate your phone</string>
+    <string name="validateText">Enter the code received by SMS</string>
+    <string name="enter_phone">Enter your phone number</string>
+    <string name="enter_name">Enter your name</string>
+</resources>
