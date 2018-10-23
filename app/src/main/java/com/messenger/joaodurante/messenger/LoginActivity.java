@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.messenger.joaodurante.messenger.common.MaskFormatter;
+import com.messenger.joaodurante.messenger.common.PermissionValidator;
 
-import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.messenger.joaodurante.messenger.common.MaskFormatter;
+import com.messenger.joaodurante.messenger.common.PermissionValidator;
 import com.messenger.joaodurante.messenger.common.TimerText;
 
 import java.util.concurrent.TimeUnit;
@@ -56,8 +57,11 @@ public class VerifyActivity extends AppCompatActivity {
                 editCode
         );
 
+        //Validate the permissions
+        PermissionValidator permissionValidator = new PermissionValidator(this, 1);
+
         //Start 60 seconds timer
-        TimerText timerText = new TimerText(textTimer, 60000);
+        TimerText timerText = new TimerText(textTimer, 90000);
 
         //Set TextView content
         String text = textPhone.getText().toString() + " to\n" + phoneNumber;
@@ -77,6 +81,7 @@ public class VerifyActivity extends AppCompatActivity {
                     return;
                 }
 
+                //Verify the code entered by the user
                 verifyVerificationCode(code);
             }
         });
@@ -86,11 +91,19 @@ public class VerifyActivity extends AppCompatActivity {
     private void sendVerificationCode(){
         this.phoneAuthProvider.verifyPhoneNumber(
                 this.phoneNumber,
-                60,
+                90,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallbacks
         );
+    }
+
+    private void verifyVerificationCode(String code){
+        //create the credential
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
+
+        //signing the user
+        signInWithPhoneAuthCredential(credential);
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -116,14 +129,6 @@ public class VerifyActivity extends AppCompatActivity {
         }
     };
 
-    private void verifyVerificationCode(String code){
-        //create the credential
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
-
-        //signing the user
-        signInWithPhoneAuthCredential(credential);
-    }
-
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential){
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(VerifyActivity.this, new OnCompleteListener<AuthResult>() {
@@ -142,21 +147,6 @@ public class VerifyActivity extends AppCompatActivity {
                 });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
