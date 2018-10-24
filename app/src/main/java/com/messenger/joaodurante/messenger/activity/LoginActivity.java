@@ -1,4 +1,4 @@
-package com.messenger.joaodurante.messenger;
+package com.messenger.joaodurante.messenger.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.messenger.joaodurante.messenger.R;
 import com.messenger.joaodurante.messenger.common.MaskFormatter;
-import com.messenger.joaodurante.messenger.common.PermissionValidator;
+import com.messenger.joaodurante.messenger.common.SwitchActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -36,9 +37,8 @@ public class LoginActivity extends AppCompatActivity {
                     editPhone.requestFocus();
                     return;
                 }else{
-                    Intent intent = new Intent(getApplicationContext(), VerifyActivity.class);
-                    intent.putExtra("phoneNumber", phone);
-                    startActivity(intent);
+                    SwitchActivity.nextActivity(LoginActivity.this, VerifyActivity.class,"phoneNumber", phone);
+                    finish();
                 }
 
             }

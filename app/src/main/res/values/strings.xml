@@ -4,4 +4,9 @@
     <string name="validateText">Enter the code received by SMS</string>
     <string name="enter_phone">Enter your phone number</string>
     <string name="enter_name">Enter your name</string>
+    <string name="leave_item">Leave</string>
+    <string name="settings_item">Settings</string>
+    <string name="search_item">Search</string>
+    <string name="button_submit">Submit</string>
+    <string name="button_validate">Validate</string>
 </resources>

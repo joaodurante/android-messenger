@@ -1,4 +1,4 @@
-package com.messenger.joaodurante.messenger;
+package com.messenger.joaodurante.messenger.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -19,8 +19,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.messenger.joaodurante.messenger.R;
+import com.messenger.joaodurante.messenger.common.FirebaseConfig;
 import com.messenger.joaodurante.messenger.common.MaskFormatter;
 import com.messenger.joaodurante.messenger.common.PermissionValidator;
+import com.messenger.joaodurante.messenger.common.SwitchActivity;
 import com.messenger.joaodurante.messenger.common.TimerText;
 
 import java.util.concurrent.TimeUnit;
@@ -46,7 +49,7 @@ public class VerifyActivity extends AppCompatActivity {
         buttonValidate = findViewById(R.id.buttonValidate);
         textPhone = findViewById(R.id.textViewNumber);
         textTimer = findViewById(R.id.textTimer);
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseConfig.getFirebaseAuth();
         phoneAuthProvider = PhoneAuthProvider.getInstance();
         Bundle extras = getIntent().getExtras();
         phoneNumber = extras.getString("phoneNumber");
@@ -135,9 +138,8 @@ public class VerifyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Intent intent = new Intent(getApplicationContext(), NameActivity.class);
-
-                            startActivity(intent);
+                            SwitchActivity.nextActivity(VerifyActivity.this, NameActivity.class);
+                            finish();
                         }else{
                             String message = "Something is wrong";
                             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();

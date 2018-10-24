@@ -1,4 +1,4 @@
-package com.messenger.joaodurante.messenger;
+package com.messenger.joaodurante.messenger.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,6 +14,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.messenger.joaodurante.messenger.R;
+import com.messenger.joaodurante.messenger.common.FirebaseConfig;
+import com.messenger.joaodurante.messenger.common.SwitchActivity;
 
 public class NameActivity extends AppCompatActivity {
 
@@ -28,7 +31,7 @@ public class NameActivity extends AppCompatActivity {
 
         editName = findViewById(R.id.editName);
         buttonValidate = findViewById(R.id.buttonValidate);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseConfig.getFirebaseUser();
         editName.setText(getProfileName(firebaseUser));
 
         buttonValidate.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +66,8 @@ public class NameActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    SwitchActivity.nextActivity(NameActivity.this, MainActivity.class);
+                    finish();
                 }
 
             }
