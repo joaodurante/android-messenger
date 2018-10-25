@@ -25,5 +25,4 @@
         android:orderInCategory="400" app:showAsAction="always"
         android:icon="@drawable/ic_person_add"
         />
-
 </menu>
